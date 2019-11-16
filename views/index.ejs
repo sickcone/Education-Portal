@@ -6,17 +6,34 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+
     <link rel="stylesheet" type="text/css" href="../css/index_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body class="body">
 
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
-</head>
+    <script type="text/javascript" src="../scripts/login.js"></script>
 
-<body class="body">
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7btuFwwl79MAD8f12iLHF2kQkvB1PRbA",
+            authDomain: "express-first-app.firebaseapp.com",
+            databaseURL: "https://express-first-app.firebaseio.com",
+            projectId: "express-first-app",
+            storageBucket: "express-first-app.appspot.com",
+            messagingSenderId: "748619368002",
+            appId: "1:748619368002:web:581e19ab33253b6d9c0fdb",
+            measurementId: "G-ZHQRD4KGLC"
+        }; 
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
     <div class="wrapper fadeInDown">
         <div id="formContent">
@@ -35,7 +52,7 @@
             </form>
 
             <!-- Login Form -->
-            <form>
+            <form action="/login" method="POST">
                 <input type="text" id="login" class="fadeIn second" name="login" placeholder="Login">
                 <input type="password" id="password" class="fadeIn third" name="login" placeholder="Password">
                 <input onclick="onLoginClick()" type="button" class="fadeIn fourth" value="Log In">
@@ -44,12 +61,35 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../login.js">
+    <script>
         function onLoginClick() {
-            const email = document.getElementById("login");
-            const password = document.getElementById("password");
+            const email = document.getElementById("login").value;
+            const password = document.getElementById("password").value;
+            let userType = 0;
+            
+            if (document.getElementById("option-one").checked) {
+                userType = 1;
+            } else if (document.getElementById("option-two").checked) {
+                userType = 2;
+            } else if (document.getElementById("option-three").checked) {
+                userType = 3;
+            }
 
-            loging.onLoginClick(email, password);
+            console.log(`User type: ${userType}`);
+
+            if (isLoginValid(email, password, userType)) {
+                onLoginClickHelper(email, password, userType);
+            }
+        }
+
+        function isLoginValid(email, password, userType) {
+            if (!email || !password) {
+                alert("Enter credentials you boomer");
+                return false;
+            } else if (userType == 0) {
+                alert("Please select user type")
+                return false;
+            } else return true;
         }
     </script>
 

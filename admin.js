@@ -5,13 +5,28 @@ require('firebase/firestore');
 require('firebase/database');
 
 const Joi = require('@hapi/joi');
+const atob = require('atob');
 const express = require('express');
 const config = require('./config');
+const sessions = require("express-session");
+
+var session;
+
 const app = express();
+
+app.set("view engine", "ejs");           
 app.use(express.json());
+app.use(sessions({
+    secret: "jlflksjf7^&^*&^8687^*&6876v8vt8787^",
+    resave: false,
+    saveUninitialized: true
+}))
+app.use("/css", express.static(__dirname + "/css"));
+app.use("/scripts", express.static(__dirname + "/scripts"));
+app.use("/images", express.static(__dirname + "/images"));
 
 // Initialize Firebase
-let serviceAccount = require("/home/noble/Akshit/sem 5/soe/Education-Portal/express-first-app-firebase-adminsdk-evqga-220eb31416.json");
+let serviceAccount = require("./express-first-app-firebase-adminsdk-evqga-220eb31416.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -24,12 +39,74 @@ const CURRENT_YEAR = 2019;
 const COLLEGE_NAME = "IIITA";
 const STUDENTS_KEY = "students";
 const FACULTIES_KEY = "faculties";
-const DEPARTMENTS_KEY = "departments";
+const COURSES_KEY = "courses";
 const dbReference = firebase.database().ref(COLLEGE_NAME);
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send("Hello World!");
 });
+
+app.get('/login', (req, res) => {
+    res.render("index");
+});
+
+app.get('/student', (req, res) => { 
+    if (req.query.data) {
+        let dataObject = JSON.parse(atob(req.query.data));
+        
+        let rollNo = dataObject.rollNo;
+        
+        dbReference.child(STUDENTS_KEY).child(rollNo).once("value", snapshot => {
+            res.render("student", snapshot.val());         
+        }, error => {
+            console.log(`Error in logging: ${error.message}`);
+        });
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get("/grades", (req, res) => {
+    if (req.query.data) {
+        let dataObject = JSON.parse(atob(req.query.data));
+        const enrollmentNo = dataObject.enrollmentNo;
+        const ddSem = dataObject.currentSem.toString();
+        dbReference.child(STUDENTS_KEY).child(enrollmentNo).once("value", snapshot => {
+
+            let studentDetails = snapshot.val();
+            studentDetails["ddSemGrades"] = studentDetails.grades[ddSem];
+            
+            res.render("grades", studentDetails);
+        }, error => {
+            console.log(`Error in fetching grades: ${error.message}`);
+        });
+    } else {
+        res.render("index");
+    }
+});
+
+app.get("/feedback", (req, res) => {
+    res.render("feedback");
+});
+
+app.get('/faculty', (req, res) => {
+    if (req.query.data) {
+        let dataObject = atob(req.query.data);
+        res.render("faculty");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/admin', (req, res) => {
+    if (req.query.data) {
+        let dataObject = atob(req.query.data);
+        res.render("admin");
+    } else {
+        res.redirect("/login");
+    }
+});
+
 
 // To ADD DEPARTMENT, post request on "/departments" with departmentName, courseName, courseCode and credits 
 // To REGISTER STUDENT, post request on "/students" with name, email, dob, batchYear and department
@@ -38,7 +115,7 @@ app.get('/', (req, res) => {
 
 app.post(`/${FACULTIES_KEY}`, (req, res) => {
     const { email } = req.body;
-    dbReference.child(FACULTIES_KEY).child(email).set(req.body, error => {
+    dbReference.child(FACULTIES_KEY).child(email.substring(0, email.indexOf("@"))).set(req.body, error => {
         if (!error) {
             res.send(successMessage("Registration Completed"));
         } else {
@@ -53,26 +130,30 @@ app.put(`/${FACULTIES_KEY}/assignCourse`, (req, res) => {
     assignCourseToFaculty(email, courseCode, res);
 });
 
-app.post("/students/", (req, res) => {
-    const { batchYear, department } = req.body;
+app.post(`/${STUDENTS_KEY}`, (req, res) => {
+    console.log("Received request to register new student.");
+    
+    const { batchYear, branch } = req.body;
 
-    const batchRef = dbReference.child(CURRENT_YEAR).child(department).child(batchYear);
+    const batchRef = dbReference.child(CURRENT_YEAR).child(branch).child(batchYear);
     batchRef.once('value', function(snapshot) {
         registerNewStudent(snapshot.val(), req.body, res);
     })
 });
 
-app.post("/departments/", (req, res) => {
-    const { departName, courseName, courseCode, credits } = req.body;
+app.post(`/${COURSES_KEY}`, (req, res) => {
+    console.log("Received request to register new course.");
 
-    dbReference.child('departments').child(departName).child(courseCode).set({
+    const { branch, courseName, courseCode, credits } = req.body;
+
+    dbReference.child(COURSES_KEY).child(branch).child(courseCode).set({
         courseName: courseName,
         code: code,
         credits: credits
     }, error => {
         if (!error) {
             console.log(`New Course added successfuly with code: ${courseCode}`);
-            res.send(successMessage('Department created successfuly'));
+            res.send(successMessage("Course registered successfuly"));
         } else {
             console.log(`There is some error: ${error}`);
             res.send(failureMessage('Something went wrong'));
@@ -92,6 +173,10 @@ function assignCourseToFaculty(email, courseCode, response) {
 }
 
 function registerNewStudent(classmates, newStudent, response) {
+    console.log(`Registering new student: ${newStudent}`);
+
+    const { name, batchYear, branch } = newStudent;
+    
     let studentNumber = 1;
     if (classmates !== null) {
         studentNumber = Object.keys(classmates).length + 1;
@@ -99,8 +184,9 @@ function registerNewStudent(classmates, newStudent, response) {
     if (studentNumber < 10) studentNumber = "00" + studentNumber;
     else if (studentNumber < 100) studentNumber = "0" + studentNumber;
 
-    const { name, email, dob, batchYear, department } = newStudent;
-    let rollNo = `I${department.substring(0, 2)}${batchYear}${studentNumber}`;
+    let rollNo = `I${branch.substring(0, 2)}${batchYear}${studentNumber}`.toLowerCase();
+    newStudent["enrollmentNo"] = rollNo;
+    newStudent["currentSem"] = "1";
     
     const collegeEmail = `${rollNo.toLowerCase()}@${COLLEGE_NAME}.ac.in`;
     const password = Math.round(Math.random() * 100000000).toString();
@@ -108,17 +194,10 @@ function registerNewStudent(classmates, newStudent, response) {
     admin.auth().createUser({
         name: name,
         email: collegeEmail,
-        password: password,
-        disabled: true
+        password: password
     }).then(function(userRecord) {
-        dbReference.child(CURRENT_YEAR).child(department).child(batchYear).child(rollNo).set(1);
-        dbReference.child("students").child(rollNo).set({
-            name: name,
-            email: email,
-            dob: dob,
-            batchYear: batchYear, 
-            departName: department
-        }, error => {
+        dbReference.child(CURRENT_YEAR).child(branch).child(batchYear).child(rollNo).set(1);
+        dbReference.child("students").child(rollNo).set(newStudent, error => {
             if (!error) {
                 response.send(successMessage(`Registered with uid: ${userRecord.uid} password: ${password}`));
             } else {
@@ -144,5 +223,5 @@ function failureMessage(message, code = 404) {
     }
 }
 
-const port = 6969;
+const port = 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
