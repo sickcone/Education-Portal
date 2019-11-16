@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^16.1.7",
+    "atob": "^2.1.2",
+    "ejs": "^2.7.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "firebase": "^7.2.1",
     "firebase-admin": "^8.7.0",
     "npm": "^6.13.0"
