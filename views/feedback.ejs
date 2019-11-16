@@ -54,12 +54,34 @@
 </head>
 
 <body>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+    <script type="text/javascript" src="../scripts/login.js"></script>
+
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7btuFwwl79MAD8f12iLHF2kQkvB1PRbA",
+            authDomain: "express-first-app.firebaseapp.com",
+            databaseURL: "https://express-first-app.firebaseio.com",
+            projectId: "express-first-app",
+            storageBucket: "express-first-app.appspot.com",
+            messagingSenderId: "748619368002",
+            appId: "1:748619368002:web:581e19ab33253b6d9c0fdb",
+            measurementId: "G-ZHQRD4KGLC"
+        }; 
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
         <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
             <header class="demo-drawer-header">
                 <img src="../images/user.jpg" class="demo-avatar">
                 <div class="demo-avatar-dropdown">
-                    <span>abcxyz@iiita.ac.in</span>
+                    <!-- <span>abcxyz@iiita.ac.in</span> -->
                     <div class="mdl-layout-spacer"></div>
                 </div>
             </header>
@@ -88,17 +110,14 @@
                         Feedback Form
                         </span>
                         <span id="dropdowns">
-                            <span class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Course
-                                </button>
-                                <span class="dropdown-menu" aria-labelledby="drwrap-tableopdownMenuButton">
-                                  <a class="dropdown-item" href="#">ABC</a>
-                                  <a class="dropdown-item" href="#">DEF</a>
-                                  <a class="dropdown-item" href="#">GTH</a>
-                                </span>
-                            </span>
-                            <span class="dropdown">
+                            <select class="btn btn-secondary dropdown-toggle" id="coursesDropdown">
+                                <% Object.keys(grades[currentSem]).forEach(key => { %>
+                                    <option value= <%= key %> >
+                                        <%= key %>
+                                    </option>
+                                <% }); %>
+                            </select>
+                            <!-- <span class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       Professor
                                     </button>
@@ -107,17 +126,15 @@
                                       <a class="dropdown-item" href="#">Ki</a>
                                       <a class="dropdown-item" href="#">Maka</a>
                                     </span>
-                            </span>
+                            </span> -->
                     </span>
-                        <!-- Here goes the dropdowns etc -->
-
                         <!-- Feedback message starts -->
                         <div class="wrap-input100 validate-input" data-validate="Message is required">
-                            <span class="label-input100">Feedback Message</span>
-                            <textarea class="input100" name="message" placeholder="Your feedback message here..."></textarea>
+                            <!-- <span class="label-input100">Feedback Message</span> -->
+                            <textarea class="input100" id="feedbackArea" name="message" placeholder="Your feedback message here..."></textarea>
                         </div>
 
-                        <input onclick="window.location.href = 'feedback.html';" type="button" class="fadeIn fourth" value="Submit">
+                        <input onclick="onClickSubmitButton()" type="button" class="fadeIn fourth" value="Submit Feedback">
                     </form>
                 </div>
             </div>
@@ -125,6 +142,28 @@
 
 
     </div>
+
+    <script>
+        function onClickSubmitButton() {
+            const courseCode = document.getElementById("coursesDropdown").value;
+            const feedback = document.getElementById("feedbackArea").value;
+
+            const COLLEGE_NAME = "IIITA";
+            const CURRENT_YEAR = "2019";
+
+            firebase.database().ref("IIITA").child(`${COLLEGE_NAME}/${CURRENT_YEAR}`).child(courseCode).push()
+                    .set(feedback, error => {
+                        if (!error) {
+                            alert("Feedback Recorded");
+                        } else {
+                            console.log("Feedback error: " + error.message);
+                        
+                            alert("Some error occured, try after sometime");
+                        }
+                    });
+        }
+    </script>
+
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

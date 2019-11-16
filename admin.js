@@ -71,6 +71,7 @@ app.get("/grades", (req, res) => {
         let dataObject = JSON.parse(atob(req.query.data));
         const enrollmentNo = dataObject.enrollmentNo;
         const ddSem = dataObject.currentSem.toString();
+
         dbReference.child(STUDENTS_KEY).child(enrollmentNo).once("value", snapshot => {
 
             let studentDetails = snapshot.val();
@@ -86,7 +87,21 @@ app.get("/grades", (req, res) => {
 });
 
 app.get("/feedback", (req, res) => {
-    res.render("feedback");
+    if (req.query.data) {
+        let dataObject = JSON.parse(atob(req.query.data));
+        const enrollmentNo = dataObject.enrollmentNo;
+    
+        dbReference.child(STUDENTS_KEY).child(enrollmentNo).once("value", snapshot => {
+
+            let studentDetails = snapshot.val();
+            
+            res.render("feedback", studentDetails);
+        }, error => {
+            console.log(`Error in fetching grades: ${error.message}`);
+        });
+    } else {
+        res.render("index");
+    }
 });
 
 app.get('/faculty', (req, res) => {
