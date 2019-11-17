@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Open Sans');
+@import url('https://fonts.googleapis.com/css?family=PT Sans');
 html,
 body {
-    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-family: 'Open Sans', 'PT Sans', sans-serif;
 }
 
 .demo-avatar {
@@ -253,7 +255,7 @@ _:-ms-input-placeholder,
 
 .details {
     font-size: 1.2em;
-    font-family: "Roboto";
+    font-family: "Open Sans";
     font-style: bold;
     color: #37474F;
     line-height: 0.05;
@@ -366,7 +368,7 @@ h3,
 h4,
 h5,
 h6 {
-    font: 'Roboto';
+    font: 'Open Sans';
     margin: 0px;
 }
 
@@ -644,7 +646,7 @@ tbody tr:hover {
 
 html,
 body {
-    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-family: 'Open Sans', 'Helvetica', sans-serif;
 }
 
 .demo-avatar {
@@ -897,7 +899,7 @@ _:-ms-input-placeholder,
 
 .details {
     font-size: 1.2em;
-    font-family: "Roboto";
+    font-family: "Open Sans";
     font-style: bold;
     color: #37474F;
     line-height: 0.05;

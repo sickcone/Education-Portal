@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+    <link rel="stylesheet" href="../css/feedback_style.css">
     <link rel="icon" type="image/png" href="../images/icons/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -36,8 +37,8 @@
     <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
     <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../css/util.css">
-    <link rel="stylesheet" type="text/css" href="../css/admin_style.css">
-    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/feedback_main.css">
+    <link rel="stylesheet" type="text/css" href="../css/addstudent_style.css">
     <style>
         #view-source {
             position: fixed;
@@ -57,99 +58,72 @@
             <header class="demo-drawer-header">
                 <img src="../images/user.jpg" class="demo-avatar">
                 <div class="demo-avatar-dropdown">
-                    <div class="mdl-layout-spacer">
-                    </div>
+                    <div class="mdl-layout-spacer"></div>
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link"><i
+                <a class="mdl-navigation__link" href="admin.html"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-                <a class="mdl-navigation__link" onclick="onClickAddStudent()"><i
-                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Student</a>
-                <a class="mdl-navigation__link" onclick="onClickAddFaculty()"><i
-                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Faculty</a>
+                <a class="mdl-navigation__link" href="admin_add_student.html"><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add
+                    Student</a>
+                <a class="mdl-navigation__link" href="admin_add_faculty.html"><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add
+                    Faculty</a>
                 <a class="mdl-navigation__link" href="admin_add_course.html"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">note_add</i>Add
                     Course</a>
-                <a class="mdl-navigation__link" onclick="onClickAllocateCourse()"><i
-                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Allocate Course</a>
-                <a class="mdl-navigation__link" onclick="onClickSendUpdates()"><i
-                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">announcement</i>Send Update</a>
-                <a class="mdl-navigation__link" onclick="onClickSignOut()"><i
+                <a class="mdl-navigation__link" href="admin_allocate_course_faculty.html"><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Allocate
+                    Course</a>
+                <a class="mdl-navigation__link" href="admin_updates.html"><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">announcement</i>Send
+                    Update</a>
+                <a class="mdl-navigation__link" href="index.html"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">cancel</i>Sign Out</a>
-                <!-- <div class="mdl-layout-spacer"></div> -->
             </nav>
         </div>
 
         <main class="mdl-layout__content mdl-color--grey-100">
-            <!-- Card Start -->
-            <div class="plx-card silver">
-                <div class="pxc-avatar"><img src="../images/books-illustration-png.png" /></div>
-                <div class="pxc-subcard">
-                    <div class="pxc-title">Prof. This and That</div>
-                    <div class="pxc-sub">Course Name : </div>
-                    <div class="pxc-sub">Semester : </div>
-                    <div class="bottom-row">
-                        <!-- Buttons -->
-                        <button class="btn third">Approve</button>
-                        <button class="btn third">Decline</button>
+            <div class="container">
+                <form>
+                    <h3 class="contact100-form-title">Add Course</h3>
+                    <div class="row">
+                        <div class="input-group input-group-icon">
+                            <input type="text" placeholder="Course Name" />
+                            <div class="input-icon"><i class="fa fa-user"></i></div>
+                        </div>
+                        <div class="col-third">
+                            <div class="input-group">
+                                <h6 class="h6">Credits</h6>
+                                <select>
+                                    <option>5</option>
+                                    <option>3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-third">
+                            <div class="input-group">
+                                <h6 class="h6">Course Code</h6>
+                                <select>
+                                    <option>ICNE532C</option>
+                                    <option>ISOE532C</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="plx-card silver">
-                <div class="pxc-avatar"><img src="../images/books-illustration-png.png" /></div>
-                <div class="pxc-subcard">
-                    <div class="pxc-title">Prof. This and That</div>
-                    <div class="pxc-sub">Course Name : </div>
-                    <div class="pxc-sub">Semester : </div>
-                    <div class="bottom-row">
-                        <!-- Buttons -->
-                        <button class="btn third">Approve</button>
-                        <button class="btn third">Decline</button>
+                    <div class="col-third">
+                        <input onclick="window.location.href = '';" type="button" class="fadeIn fourth" value="Allocate">
                     </div>
-                </div>
+                    <br>
+                    <br>
+                </form>
+                <br>
             </div>
-            <div class="plx-card silver">
-                <div class="pxc-avatar"><img src="../images/books-illustration-png.png" /></div>
-                <div class="pxc-subcard">
-                    <div class="pxc-title">Prof. This and That</div>
-                    <div class="pxc-sub">Course Name : </div>
-                    <div class="pxc-sub">Semester : </div>
-                    <div class="bottom-row">
-                        <!-- Buttons -->
-                        <button class="btn third">Approve</button>
-                        <button class="btn third">Decline</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Card End -->
         </main>
 
 
     </div>
-
-    <script>
-        function onClickAddStudent() {
-            window.open("admin-add-student", "_top");
-        }
-
-        function onClickAddFaculty() {
-            window.open("admin-add-faculty", "_top");
-        }
-
-        function onClickAllocateCourse() {
-            window.open("admin-allocate-course", "_top");
-        }
-
-        function onClickSendUpdates() {
-            window.open("admin-send-updates", "_top");
-        }
-
-        function onClickSignOut() {
-            window.open("login", "_top");
-        }
-    </script>
-
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </body>
 

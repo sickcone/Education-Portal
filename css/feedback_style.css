@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Open Sans');
+@import url('https://fonts.googleapis.com/css?family=PT Sans');
 html,
 body {
-    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-family: 'Open Sans', 'PT Sans', sans-serif;
 }
 
 .demo-avatar {
@@ -249,12 +251,11 @@ _:-ms-input-placeholder,
 
 .details {
     font-size: 1.2em;
-    font-family: "Roboto";
+    font-family: "Open Sans";
     font-style: bold;
     color: #37474F;
     line-height: 0.05;
 }
-
 
 input[type=button],
 input[type=submit],
@@ -297,21 +298,21 @@ input[type=reset]:active {
 }
 
 @media only screen and (min-width: 840px) {
-    #main-content{
+    #main-content {
         transform: translateY(15%);
     }
-  }
+}
 
-  @media only screen and (max-width: 840px) {
-    #main-content{
+@media only screen and (max-width: 840px) {
+    #main-content {
         transform: translateY(10%);
     }
-  }
+}
 
-#dropdowns{
+#dropdowns {
     padding-bottom: 20px;
 }
 
-.dropdown{
+.dropdown {
     padding-right: 10px;
 }

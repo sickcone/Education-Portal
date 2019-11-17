@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Open Sans');
 
 /* BASIC */
 
 html {
-    background-image: linear-gradient(#56baed, #9fdfff);
+    /* background-image: linear-gradient(#56baed, #9fdfff); */
+    background-image: radial-gradient(#caedff, #9fdfff, #6dceff, #56baed);
 }
 
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: "Open Sans", sans-serif;
     height: 100vh;
 }
 

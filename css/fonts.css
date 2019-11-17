@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Open Sans');
+@import url('https://fonts.googleapis.com/css?family=PT Sans');
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+@font-face {
+    font-family: Raleway-Black;
+    src: url('../fonts/raleway/Raleway-Black.ttf');
+}
+
+@font-face {
+    font-family: Raleway-SemiBold;
+    src: url('../fonts/raleway/Raleway-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: Raleway-Bold;
+    src: url('../fonts/raleway/Raleway-Bold.ttf');
+}
+
+.contact100-form-title {
+    display: block;
+    width: 100%;
+    font-family: Raleway-Black;
+    font-size: 30px;
+    color: #333333;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: left;
+    padding-bottom: 32px;
+}
+
+a {
+    font-family: Raleway-SemiBold;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+
+p {
+    font-family: Raleway-SemiBold;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0px;
+}

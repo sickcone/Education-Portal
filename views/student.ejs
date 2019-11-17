@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
     <link rel="stylesheet" href="../css/student_style.css">
+    <link rel="stylesheet" href="../css/fonts.css">
     <style>
         #view-source {
             position: fixed;
@@ -49,7 +50,6 @@
             <header class="demo-drawer-header">
                 <img src="../images/user.jpg" class="demo-avatar">
                 <div class="demo-avatar-dropdown">
-                    <!-- <span>abcxyz@iiita.ac.in</span> -->
                     <div class="mdl-layout-spacer"></div>
                 </div>
             </header>
@@ -67,33 +67,78 @@
                 <!-- Personal Details -->
                 <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
                     <img src="../images/user.jpg" class="demo-avatar-big">
-                    <h1 class="details">Name :
-                        <%= name %>
-                    </h1>
-                    <h1 class="details">Father's Name :
-                        <%= fathersName %>
-                    </h1>
-                    <h1 class="details">Enrollment No. :
-                        <%= enrollmentNo %>
-                    </h1>
-                    <h1 class="details">Date of Birth :
-                        <%= dob %>
-                    </h1>
-                    <h1 class="details">Blood Group :
-                        <%= bloodGroup %>
-                    </h1>
-                    <h1 class="details">Branch :
-                        <%= branch %>
-                    </h1>
-                    <h1 class="details">Address :
-                        <%= address %>
-                    </h1>
-                    <h1 class="details">Mobile Number :
-                        <%= phoneNumber %>
-                    </h1>
-                    <h1 class="details">Personal E-mail :
-                        <%= email %>
-                    </h1>
+                    <div class="details-head">
+                        <span class="dets">
+                            Name :
+                        </span>
+                        <span class="details">
+                            <%= name %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Father's Name :
+                        </span>
+                        <span class="details">
+                            <%= fathersName %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Enrollment No. :
+                        </span>
+                        <span class="details">
+                            <%= enrollmentNo %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Date of Birth :
+                        </span>
+                        <span class="details">
+                            <%= dob %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Blood Group :
+                        </span>
+                        <span class="details">
+                            <%= bloodGroup %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Branch :
+                        </span>
+                        <span class="details">
+                            <%= branch %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Address :
+                        </span>
+                        <span class="details">
+                            <%= address %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Mobile Number :
+                        </span>
+                        <span class="details">
+                            <%= phoneNumber %>
+                        </span>
+                    </div>
+                    <div class="details-head">
+                        <span class="dets">
+                            Personal E-mail :
+                        </span>
+                        <span class="details">
+                            <%= email %>
+                        </span>
+                    </div>
                 </div>
                 <!-- Personal Details End -->
                 <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
@@ -103,8 +148,10 @@
                             <ul class="mdl-card__subtitle-text" id="updates-card">
                                 <marquee direction="down" scrollamount="5px">
                                     <% Object.keys(updates).forEach(key => { %>
-                                        <li class="list-items"><%= updates[key] %></li>
-                                    <% }) %>
+                                        <li class="list-items">
+                                            <%= updates[key] %>
+                                        </li>
+                                        <% }) %>
                                 </marquee>
                                 <h2 class="mdl-card__title-text" style="color: azure">Updates</h2>
                         </div>
@@ -114,26 +161,6 @@
 
                     </div>
                     <div class="demo-separator mdl-cell--1-col"></div>
-                    <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
-                        <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
-                            <ul id="courses-list">
-                                <li>Course 1</li>
-                                <li>Course 2</li>
-                                <li>Course 3</li>
-                                <li>Course 4</li>
-                                <li>Course 5</li>
-                                <li>Course 6</li>
-                                <li>Course 4</li>
-                                <li>Course 5</li>
-                                <li>Course 6</li>
-                            </ul>
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-50">Current Courses</a>
-                            <div class="mdl-layout-spacer"></div>
-                            <i class="material-icons">assessment</i>
-                        </div>
-                    </div>
                 </div>
             </div>
         </main>

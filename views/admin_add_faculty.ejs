@@ -39,6 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/feedback_main.css">
     <link rel="stylesheet" type="text/css" href="../css/admin_add_faculty_style.css">
+    <link rel="stylesheet" href="../css/fonts.css">
     <style>
         #view-source {
             position: fixed;
@@ -71,7 +72,7 @@
             messagingSenderId: "748619368002",
             appId: "1:748619368002:web:581e19ab33253b6d9c0fdb",
             measurementId: "G-ZHQRD4KGLC"
-        }; 
+        };
         firebase.initializeApp(firebaseConfig);
     </script>
 
@@ -80,17 +81,19 @@
             <header class="demo-drawer-header">
                 <img src="../images/user.jpg" class="demo-avatar">
                 <div class="demo-avatar-dropdown">
-                    <span>abcxyz@iiita.ac.in</span>
                     <div class="mdl-layout-spacer"></div>
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" ><i
+                <a class="mdl-navigation__link"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-                <a class="mdl-navigation__link" onclick="onClickAddStudent()" ><i
+                <a class="mdl-navigation__link" onclick="onClickAddStudent()"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Student</a>
-                <a class="mdl-navigation__link" ><i
+                <a class="mdl-navigation__link"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Faculty</a>
+                <a class="mdl-navigation__link" href="admin_add_course.html"><i class="mdl-color-text--blue-grey-400 material-icons"
+                        role="presentation">note_add</i>Add
+                    Course</a>
                 <a class="mdl-navigation__link" onclick="onClickAllocateCourse()"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Allocate Course</a>
                 <a class="mdl-navigation__link" onclick="onClickSendUpdates()"><i
@@ -104,22 +107,23 @@
             <div class="container">
                 <form>
                     <div class="row">
-                        <h4>Account</h4>
+                        <h6 class="contact100-form-title">Add Faculty</h6>
+                        <h6> Basic Details</h6>
                         <div class="input-group input-group-icon">
-                            <input type="text" placeholder="Full Name" id="full-name" />
+                            <input type="text" placeholder="Full Name" />
                             <div class="input-icon"><i class="fa fa-user"></i></div>
                         </div>
                         <div class="input-group input-group-icon">
-                            <input type="email" placeholder="Email Adress" id="email" />
+                            <input type="email" placeholder="Email Adress" />
                             <div class="input-icon"><i class="fa fa-envelope"></i></div>
                         </div>
                         <div class="input-group">
-                            <input type="text" placeholder="Mobile Number" id="phone-number"/>
+                            <input type="text" placeholder="Mobile Number" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-half">
-                            <h4>Gender</h4>
+                            <h6>Gender</h6>
                             <div class="input-group">
                                 <input type="radio" name="gender" value="male" id="gender-male" />
                                 <label for="gender-male">Male</label>
@@ -129,18 +133,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <h4>Other Details</h4>
+                        <h6>Other Details</h6>
                         <div class="col">
                             <div class="input-group">
-                                <input type="text" placeholder="Address" id="address" />
+                                <input type="text" placeholder="Address" />
                             </div>
                         </div>
                     </div>
                     <div class="col-third">
-                        <input onclick="onClickAddFacultyButton()" type="button" class="fadeIn fourth" value="Add Faculty">
+                        <input onclick="window.location.href = '';" type="button" class="fadeIn fourth" value="Add Faculty">
                     </div>
-                    <br>
-                    <br>
+                    <h6>.</h6>
                 </form>
             </div>
         </main>
@@ -149,73 +152,71 @@
     </div>
 
     <script>
-    
-    function onClickAddStudent() {
+        function onClickAddStudent() {
             window.open("admin-add-student", "_top");
-    }
-
-    function onClickAddFacultyButton() {
-        let name = document.getElementById("full-name").value;
-        let email = document.getElementById("email").value;
-        let address = document.getElementById("address").value;
-        let phoneNumber = document.getElementById("phone-number").value;
-        let gender;
-        if(document.getElementById("gender-male").checked) {
-            gender = "Male";
-        } else if(document.getElementById("gender-female").checked) {
-            gender = "Female";
         }
 
-        let facultyDetails = {
-            name: name,
-            email: email,
-            address: address,
-            phoneNumber: phoneNumber,
-            gender: gender
-        };
+        function onClickAddFacultyButton() {
+            let name = document.getElementById("full-name").value;
+            let email = document.getElementById("email").value;
+            let address = document.getElementById("address").value;
+            let phoneNumber = document.getElementById("phone-number").value;
+            let gender;
+            if (document.getElementById("gender-male").checked) {
+                gender = "Male";
+            } else if (document.getElementById("gender-female").checked) {
+                gender = "Female";
+            }
 
-        registerNewFaculty(facultyDetails);
-    }
+            let facultyDetails = {
+                name: name,
+                email: email,
+                address: address,
+                phoneNumber: phoneNumber,
+                gender: gender
+            };
 
-    function registerNewFaculty(facultyDetails) {
+            registerNewFaculty(facultyDetails);
+        }
 
-        const COLLEGE_NAME = "IIITA";
-        const CURRENT_YEAR = "2019";
-        const dbReference = firebase.database().ref(COLLEGE_NAME);
+        function registerNewFaculty(facultyDetails) {
 
-        console.log("Registering new faculty...");
+            const COLLEGE_NAME = "IIITA";
+            const CURRENT_YEAR = "2019";
+            const dbReference = firebase.database().ref(COLLEGE_NAME);
 
-        const email = facultyDetails.email;
-        
-        const username = email.substring(0, email.indexOf("@"));
-        const password = username + "iiita";
+            console.log("Registering new faculty...");
 
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function(userRecord) {
-                dbReference.child("faculties").child(username).set(facultyDetails, error => {
-                    if (!error) {
-                        alert(`Registered Faculty: ${email} Password: ${password}`);
-                    } else {
-                        alert(error);
-                    }
+            const email = facultyDetails.email;
+
+            const username = email.substring(0, email.indexOf("@"));
+            const password = username + "iiita";
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(function(userRecord) {
+                    dbReference.child("faculties").child(username).set(facultyDetails, error => {
+                        if (!error) {
+                            alert(`Registered Faculty: ${email} Password: ${password}`);
+                        } else {
+                            alert(error);
+                        }
+                    });
+                }).catch(function(error) {
+                    alert(error);
                 });
-            }).catch(function(error) {
-                alert(error);
-            });
-    }
+        }
 
-    function onClickAllocateCourse() {
-        window.open("admin-allocate-course", "_top");
-    }
+        function onClickAllocateCourse() {
+            window.open("admin-allocate-course", "_top");
+        }
 
-    function onClickSendUpdates() {
-        window.open("admin-send-updates", "_top");
-    }
+        function onClickSendUpdates() {
+            window.open("admin-send-updates", "_top");
+        }
 
-    function onClickSignOut() {
-        window.open("login", "_top");
-    }
-        
+        function onClickSignOut() {
+            window.open("login", "_top");
+        }
     </script>
 
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>

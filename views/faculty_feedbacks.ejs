@@ -38,6 +38,7 @@
     <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="../vendor/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" type="text/css" href="../css/util.css">
+    <link rel="stylesheet" href="../css/fonts.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
@@ -60,14 +61,13 @@
             <header class="demo-drawer-header">
                 <img src="../images/user.jpg" class="demo-avatar">
                 <div class="demo-avatar-dropdown">
-                    <span>abcxyz@iiita.ac.in</span>
                     <div class="mdl-layout-spacer"></div>
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" ><i class="mdl-color-text--blue-grey-400 material-icons"
+                <a class="mdl-navigation__link"><i class="mdl-color-text--blue-grey-400 material-icons"
                         role="presentation">event_note</i>Course Grades</a>
-                <a class="mdl-navigation__link" ><i class="mdl-color-text--blue-grey-400 material-icons"
+                <a class="mdl-navigation__link"><i class="mdl-color-text--blue-grey-400 material-icons"
                         role="presentation">assignment</i>Feedbacks</a>
                 <a class="mdl-navigation__link" onclick="onClickUploadGrades()"><i class="mdl-color-text--blue-grey-400 material-icons"
                         role="presentation">note_add</i>Upload Grades</a>
@@ -83,11 +83,15 @@
                     <% Object.keys(feedbacks[courseCode]).forEach(key => { %>
                         <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
                             <ul class="mdl-card__subtitle-text" id="updates-card">
-                                <h5> <%= feedbacks[courseCode][key] %> </h5>
-                            <h2 class="mdl-card__title-text" style="color: azure"><%= courseCode %></h2>
+                                <h5>
+                                    <%= feedbacks[courseCode][key] %>
+                                </h5>
+                                <h2 class="mdl-card__title-text" style="color: azure">
+                                    <%= courseCode %>
+                                </h2>
                         </div>
-                    <% }) %>
-                <% }); %>
+                        <% }) %>
+                            <% }); %>
             </div>
         </main>
 
@@ -95,9 +99,8 @@
     </div>
 
     <script>
-
         function onClickUploadGrades() {
-            const username = <%- JSON.stringify(username) %>;        
+            const username = <%- JSON.stringify(username) %>;
 
             let dataObject = {
                 username: username,

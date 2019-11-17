@@ -39,6 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/feedback_main.css">
     <link rel="stylesheet" type="text/css" href="../css/addstudent_style.css">
+    <link rel="stylesheet" href="../css/fonts.css">
     <style>
         #view-source {
             position: fixed;
@@ -71,7 +72,7 @@
             messagingSenderId: "748619368002",
             appId: "1:748619368002:web:581e19ab33253b6d9c0fdb",
             measurementId: "G-ZHQRD4KGLC"
-        }; 
+        };
         firebase.initializeApp(firebaseConfig);
     </script>
 
@@ -85,12 +86,15 @@
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" onclick="onClickHome()" ><i
+                <a class="mdl-navigation__link" onclick="onClickHome()"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-                <a class="mdl-navigation__link" ><i
+                <a class="mdl-navigation__link"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Student</a>
-                <a class="mdl-navigation__link" onclick="onClickAddFaculty()" ><i
+                <a class="mdl-navigation__link" onclick="onClickAddFaculty()"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Faculty</a>
+                <a class="mdl-navigation__link" href="admin_add_course.html"><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">note_add</i>Add
+                    Course</a>
                 <a class="mdl-navigation__link" onclick="onClickAllocateCourse()"><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Allocate Course</a>
                 <a class="mdl-navigation__link" onclick="onClickSendUpdates()"><i
@@ -104,9 +108,10 @@
             <div class="container">
                 <form>
                     <div class="row">
-                        <h4>Account</h4>
+                        <h6 class="contact100-form-title">Account</h6>
+                        <h6>Basic Details</h6>
                         <div class="input-group input-group-icon">
-                            <input type="text" placeholder="Full Name" id="full-name"/>
+                            <input type="text" placeholder="Full Name" id="full-name" />
                             <div class="input-icon"><i class="fa fa-user"></i></div>
                         </div>
                         <div class="input-group input-group-icon">
@@ -119,7 +124,7 @@
                     </div>
                     <div class="row">
                         <div class="col-half">
-                            <h4>Date of Birth</h4>
+                            <h6>Date of Birth</h6>
                             <div class="input-group">
                                 <div class="col-third">
                                     <input type="text" placeholder="DD" id="dob-day" />
@@ -133,7 +138,7 @@
                             </div>
                         </div>
                         <div class="col-half">
-                            <h4>Gender</h4>
+                            <h6>Gender</h6>
                             <div class="input-group">
                                 <input type="radio" name="gender" value="male" id="gender-male" />
                                 <label for="gender-male">Male</label>
@@ -143,7 +148,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <h4>Other Details</h4>
+                        <h6>Other Details</h6>
                         <div class="col">
                             <div class="input-group">
                                 <div class="col-third">
@@ -164,7 +169,7 @@
                         </div>
                         <div class="col-half">
                             <div class="input-group">
-                                <h4>Enrollment Year</h4>
+                                <h6>Enrollment Year</h6>
                                 <select id="enrollmentDropdown">
                                         <option value="2016">2016</option>
                                         <option value="2017">2017</option>
@@ -187,7 +192,6 @@
     </div>
 
     <script>
-
         const COLLEGE_NAME = "IIITA";
         const CURRENT_YEAR = "2019";
         const dbReference = firebase.database().ref(COLLEGE_NAME);
@@ -201,9 +205,9 @@
             let dobYear = document.getElementById("dob-year").value;
             let dob = `${dobDay}/${dobMonth}/${dobYear}`;
             let gender;
-            if(document.getElementById("gender-male").checked) {
-               gender = "Male"; 
-            } else if(document.getElementById("gender-female").checked) {
+            if (document.getElementById("gender-male").checked) {
+                gender = "Male";
+            } else if (document.getElementById("gender-female").checked) {
                 gender = "Female";
             }
             let fathersName = document.getElementById("fathers-name").value;
@@ -211,7 +215,7 @@
             let branch = document.getElementById("branch").value;
             let address = document.getElementById("address").value;
             let batchYear = document.getElementById("enrollmentDropdown").value;
-            
+
             let studentDetails = {
                 address: address,
                 batchYear: batchYear,
@@ -227,7 +231,7 @@
             };
 
             const batchRef = firebase.database().ref(COLLEGE_NAME).child(CURRENT_YEAR).child(branch).child(batchYear);
-                batchRef.once('value', function(snapshot) {
+            batchRef.once('value', function(snapshot) {
                 registerNewStudent(snapshot.val(), studentDetails);
             });
 
@@ -236,8 +240,12 @@
         function registerNewStudent(classmates, newStudent) {
             console.log(`Registering new student...`);
 
-            const { name, batchYear, branch } = newStudent;
-            
+            const {
+                name,
+                batchYear,
+                branch
+            } = newStudent;
+
             let studentNumber = 1;
             if (classmates !== null) {
                 studentNumber = Object.keys(classmates).length + 1;
@@ -248,23 +256,23 @@
             let rollNo = `I${branch.substring(0, 2)}${batchYear}${studentNumber}`.toLowerCase();
             newStudent["enrollmentNo"] = rollNo;
             newStudent["currentSem"] = "1";
-            
+
             const collegeEmail = `${rollNo.toLowerCase()}@${COLLEGE_NAME}.ac.in`;
             const password = Math.round(Math.random() * 100000000).toString();
-                
+
             firebase.auth().createUserWithEmailAndPassword(collegeEmail, password)
-            .then(function(userRecord) {
-                dbReference.child(CURRENT_YEAR).child(branch).child(batchYear).child(rollNo).set(1);
-                dbReference.child("students").child(rollNo).set(newStudent, error => {
-                    if (!error) {
-                        alert(`Registered Enrollment: ${rollNo} Password: ${password}`);
-                    } else {
-                        alert("Some error occured, please try later");
-                    }
+                .then(function(userRecord) {
+                    dbReference.child(CURRENT_YEAR).child(branch).child(batchYear).child(rollNo).set(1);
+                    dbReference.child("students").child(rollNo).set(newStudent, error => {
+                        if (!error) {
+                            alert(`Registered Enrollment: ${rollNo} Password: ${password}`);
+                        } else {
+                            alert("Some error occured, please try later");
+                        }
+                    });
+                }).catch(function(error) {
+                    alert("Some error occured, please try later");
                 });
-            }).catch(function(error) {
-                alert("Some error occured, please try later");
-            });
         }
 
         function onClickHome() {
