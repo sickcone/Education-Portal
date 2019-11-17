@@ -47,14 +47,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    res.render("index");
+    res.render("login");
 });
 
 app.get('/student', (req, res) => { 
     if (req.query.data) {
         let dataObject = JSON.parse(atob(req.query.data));
         
-        let rollNo = dataObject.rollNo;
+        let rollNo = dataObject.enrollmentNo;
         
         dbReference.child(STUDENTS_KEY).child(rollNo).once("value", snapshot => {
             res.render("student", snapshot.val());         
@@ -66,9 +66,10 @@ app.get('/student', (req, res) => {
     }
 });
 
-app.get("/grades", (req, res) => {
+app.get("/student-grades", (req, res) => {
     if (req.query.data) {
         let dataObject = JSON.parse(atob(req.query.data));
+        
         const enrollmentNo = dataObject.enrollmentNo;
         const ddSem = dataObject.currentSem.toString();
 
@@ -82,11 +83,11 @@ app.get("/grades", (req, res) => {
             console.log(`Error in fetching grades: ${error.message}`);
         });
     } else {
-        res.render("index");
+        res.redirect("/login");
     }
 });
 
-app.get("/feedback", (req, res) => {
+app.get("/student-feedback", (req, res) => {
     if (req.query.data) {
         let dataObject = JSON.parse(atob(req.query.data));
         const enrollmentNo = dataObject.enrollmentNo;
@@ -100,7 +101,7 @@ app.get("/feedback", (req, res) => {
             console.log(`Error in fetching grades: ${error.message}`);
         });
     } else {
-        res.render("index");
+        res.redirect("/login");
     }
 });
 

@@ -67,10 +67,10 @@
                         </div>
                     </header>
                     <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                        <a class="mdl-navigation__link" href="student.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-                        <a class="mdl-navigation__link" href="grades.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Grades</a>
-                        <a class="mdl-navigation__link" href="feedback.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Feedback</a>
-                        <a class="mdl-navigation__link" href="index.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Sign Out</a>
+                        <a class="mdl-navigation__link" onclick="onClickHomeButton()" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+                        <a class="mdl-navigation__link" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Grades</a>
+                        <a class="mdl-navigation__link" onclick="onClickFeedbackButton()" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Feedback</a>
+                        <a class="mdl-navigation__link" onclick="onClickSignOut()" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Sign Out</a>
                     </nav>
                     
             </div>
@@ -131,7 +131,43 @@
             let newSemester = document.getElementById("semesterDropDown").value;
             const enrollmentNo = <%- JSON.stringify(enrollmentNo) %>;        
             
-            onChangeSemesterHelper(enrollmentNo, newSemester)
+            let dataObject = {
+                enrollmentNo: enrollmentNo,
+                currentSem: newSemester
+            }
+            console.log("Changed drop down value");
+            
+            let dataObjectBase64 = btoa(JSON.stringify(dataObject));
+
+            window.open(`/grades/?data=${dataObjectBase64}`, "_top");
+        }
+
+        function onClickHomeButton() {
+            const enrollmentNo = <%- JSON.stringify(enrollmentNo) %>;        
+
+            let dataObject = {
+                enrollmentNo: enrollmentNo
+            };
+
+            let dataObjectBase64 = btoa(JSON.stringify(dataObject));
+
+            window.open(`/student/?data=${dataObjectBase64}`, "_top");
+        }
+
+        function onClickFeedbackButton() {
+            const enrollmentNo = <%- JSON.stringify(enrollmentNo) %>;        
+
+            let dataObject = {
+                enrollmentNo: enrollmentNo,
+            };
+
+            let dataObjectBase64 = btoa(JSON.stringify(dataObject));
+
+            window.open(`/student-feedback/?data=${dataObjectBase64}`, "_top");
+        }
+
+        function onClickSignOut() {
+            window.open("/login", "_top");
         }
 
     </script>
