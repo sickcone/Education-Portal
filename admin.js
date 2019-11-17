@@ -177,7 +177,29 @@ app.get('/admin-add-faculty', (req, res) => {
 });
 
 app.get('/admin-allocate-course', (req, res) => {
-    res.render("admin_allocate_course");
+    let data = { };
+
+    dbReference.child(FACULTIES_KEY).once("value", facultiesSS => {
+        data.faculties = facultiesSS.val();
+
+        dbReference.child("departments").once("value", snapshot => {
+            let branches = snapshot.val()
+
+            let i = 0;
+            Object.keys(branches).forEach(branch => {
+                if (i === 0) {
+                    data.courses = branches[branch];
+                }
+                Object.keys(branches[branch]).forEach(courseCode => {
+                    data.courses[courseCode] = branches[branch][courseCode];
+                });
+                i++;
+            });
+            console.log(data);
+            
+            res.render("admin_allocate_course", data);
+        });
+    });
 });
 
 app.get('/admin-send-updates', (req, res) => {
