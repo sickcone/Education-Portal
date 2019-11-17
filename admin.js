@@ -53,7 +53,6 @@ app.get('/login', (req, res) => {
 app.get('/student', (req, res) => { 
     if (req.query.data) {
         let dataObject = JSON.parse(atob(req.query.data));
-        
         let rollNo = dataObject.enrollmentNo;
         
         dbReference.child(STUDENTS_KEY).child(rollNo).once("value", snapshot => {
@@ -78,7 +77,7 @@ app.get("/student-grades", (req, res) => {
             let studentDetails = snapshot.val();
             studentDetails["ddSemGrades"] = studentDetails.grades[ddSem];
             
-            res.render("grades", studentDetails);
+            res.render("student_grades", studentDetails);
         }, error => {
             console.log(`Error in fetching grades: ${error.message}`);
         });
@@ -96,7 +95,7 @@ app.get("/student-feedback", (req, res) => {
 
             let studentDetails = snapshot.val();
             
-            res.render("feedback", studentDetails);
+            res.render("student_feedback", studentDetails);
         }, error => {
             console.log(`Error in fetching grades: ${error.message}`);
         });
@@ -105,22 +104,72 @@ app.get("/student-feedback", (req, res) => {
     }
 });
 
-app.get('/faculty', (req, res) => {
+app.get('/faculty-grades', (req, res) => {
+    if (req.query.data && req.query.data) {
+        let dataObject = JSON.parse(atob(req.query.data));
+        const username = dataObject.username;
+
+        dbReference.child(FACULTIES_KEY).child(username).child("courses").once("value", snapshot => {
+            let courses = snapshot.value();
+        });
+
+        res.render("faculty_grades");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/faculty-feedbacks', (req, res) => {
     if (req.query.data) {
-        let dataObject = atob(req.query.data);
-        res.render("faculty");
+        let dataObject = JSON.parse(atob(req.query.data));
+        const username = dataObject.username;
+
+        let facultyFeedbacks = { };
+
+        dbReference.child("feedbacks").child(CURRENT_YEAR).once("value", snapshot => {
+            let allFeedbacks = snapshot.val();
+            dbReference.child(FACULTIES_KEY).child(username).child("courses").once("value", snapshot => {
+                let courses = snapshot.val();
+                Object.keys(courses).forEach(key => {
+                    facultyFeedbacks[key] = allFeedbacks[key];
+                });
+
+                let data = { 
+                    username: username,
+                    feedbacks: facultyFeedbacks
+                };
+                
+                res.render("faculty_feedbacks", data);
+            });
+        });
+
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/faculty-upload-grades', (req, res) => {
+    if (req.query.data) {
+        let dataObject = JSON.parse(atob(req.query.data));
+        const username = dataObject.username;
+
+        dbReference.child(FACULTIES_KEY).child(username).child("courses").once("value", snapshot => {
+            let courses = snapshot.val();
+            
+            res.render("faculty_upload_grades", {courses: courses});
+        });
+
     } else {
         res.redirect("/login");
     }
 });
 
 app.get('/admin', (req, res) => {
-    if (req.query.data) {
-        let dataObject = atob(req.query.data);
-        res.render("admin");
-    } else {
-        res.redirect("/login");
-    }
+    res.render("admin");
+});
+
+app.get('/admin-add-student', (req, res) => {
+    res.render("admin_add_student");
 });
 
 
@@ -154,7 +203,7 @@ app.post(`/${STUDENTS_KEY}`, (req, res) => {
     const batchRef = dbReference.child(CURRENT_YEAR).child(branch).child(batchYear);
     batchRef.once('value', function(snapshot) {
         registerNewStudent(snapshot.val(), req.body, res);
-    })
+    });
 });
 
 app.post(`/${COURSES_KEY}`, (req, res) => {

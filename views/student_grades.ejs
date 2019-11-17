@@ -85,11 +85,11 @@
                         
                         <!-- Here goes the dropdowns etc -->
                         <select class="btn btn-secondary dropdown-toggle" id="semesterDropDown" onchange="onChangeSemester()">
-                                <% Object.keys(grades).forEach(key => { %>
-                                    <option value= <%= key %> >
-                                        Semester <%= key.charAt(key.length - 1) %>
-                                    </option>
-                                <% }); %>
+                            <% Object.keys(grades).forEach(key => { %>
+                                <option value= <%= key %> >
+                                    Semester <%= key.charAt(key.length - 1) %>
+                                </option>
+                            <% }); %>
                         </select>
 
                         <!-- Feedback message starts -->
