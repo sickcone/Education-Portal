@@ -172,6 +172,18 @@ app.get('/admin-add-student', (req, res) => {
     res.render("admin_add_student");
 });
 
+app.get('/admin-add-faculty', (req, res) => {
+    res.render("admin_add_faculty");
+});
+
+app.get('/admin-allocate-course', (req, res) => {
+    res.render("admin_allocate_course");
+});
+
+app.get('/admin-send-updates', (req, res) => {
+    res.render("admin_updates");
+});
+
 
 // To ADD DEPARTMENT, post request on "/departments" with departmentName, courseName, courseCode and credits 
 // To REGISTER STUDENT, post request on "/students" with name, email, dob, batchYear and department
