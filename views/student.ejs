@@ -42,10 +42,10 @@
 </head>
 
 <body>
-  
+
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
         <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-          
+
             <header class="demo-drawer-header">
                 <img src="../images/user.jpg" class="demo-avatar">
                 <div class="demo-avatar-dropdown">
@@ -54,10 +54,10 @@
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-                <a class="mdl-navigation__link" onclick="onClickGrades()" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Grades</a>
-                <a class="mdl-navigation__link" onclick="onClickFeedback()" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Feedback</a>
-                <a class="mdl-navigation__link" onclick="onClickSignOut()" ><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Sign Out</a>
+                <a class="mdl-navigation__link"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+                <a class="mdl-navigation__link" onclick="onClickGrades()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">event_note</i>Grades</a>
+                <a class="mdl-navigation__link" onclick="onClickFeedback()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Feedback</a>
+                <a class="mdl-navigation__link" onclick="onClickSignOut()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">cancel</i>Sign Out</a>
             </nav>
         </div>
 
@@ -67,38 +67,56 @@
                 <!-- Personal Details -->
                 <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
                     <img src="../images/user.jpg" class="demo-avatar-big">
-                    <h1 class="details">Name : <%= name %></h1>
-                    <h1 class="details">Father's Name : <%= fathersName %></h1>
-                    <h1 class="details">Enrollment No. : <%= enrollmentNo %></h1>
-                    <h1 class="details">Date of Birth : <%= dob %></h1>
-                    <h1 class="details">Blood Group : <%= bloodGroup %></h1>
+                    <h1 class="details">Name :
+                        <%= name %>
+                    </h1>
+                    <h1 class="details">Father's Name :
+                        <%= fathersName %>
+                    </h1>
+                    <h1 class="details">Enrollment No. :
+                        <%= enrollmentNo %>
+                    </h1>
+                    <h1 class="details">Date of Birth :
+                        <%= dob %>
+                    </h1>
+                    <h1 class="details">Blood Group :
+                        <%= bloodGroup %>
+                    </h1>
                     <h1 class="details">Program : </h1>
-                    <h1 class="details">Branch : <%= branch %></h1>
-                    <h1 class="details">Address : <%= address %></h1>
-                    <h1 class="details">Mobile Number : <%= phoneNumber %></h1>
-                    <h1 class="details">Personal E-mail : <%= email %></h1>
+                    <h1 class="details">Branch :
+                        <%= branch %>
+                    </h1>
+                    <h1 class="details">Address :
+                        <%= address %>
+                    </h1>
+                    <h1 class="details">Mobile Number :
+                        <%= phoneNumber %>
+                    </h1>
+                    <h1 class="details">Personal E-mail :
+                        <%= email %>
+                    </h1>
                 </div>
                 <!-- Personal Details End -->
                 <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
                     <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
-                        
-                      <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                          <ul class="mdl-card__subtitle-text" id="updates-card">
-                              <marquee direction="down" scrollamount="5px">
-                                  <li class="list-items">asdnasdlknaslkdnglaksd</li>
-                                  <li class="list-items">ewkjfewboiewboiweboiewb</li>
-                                  <li class="list-items">asdnasdlknaslkdnglaksd</li>
-                                  <li class="list-items">ewkjfewboiewboiweboiewb</li>
-                                  <li class="list-items">asdnasdlknaslkdnglaksd</li>
-                                  <li class="list-items">asdnasdlknaslkdnglaksd</li>
-                                  <li class="list-items">asdnasdlknaslkdnglaksd</li>
-                              </marquee>
-                            <h2 class="mdl-card__title-text" style="color: azure">Updates</h2>
+
+                        <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
+                            <ul class="mdl-card__subtitle-text" id="updates-card">
+                                <marquee direction="down" scrollamount="5px">
+                                    <li class="list-items">asdnasdlknaslkdnglaksd</li>
+                                    <li class="list-items">ewkjfewboiewboiweboiewb</li>
+                                    <li class="list-items">asdnasdlknaslkdnglaksd</li>
+                                    <li class="list-items">ewkjfewboiewboiweboiewb</li>
+                                    <li class="list-items">asdnasdlknaslkdnglaksd</li>
+                                    <li class="list-items">asdnasdlknaslkdnglaksd</li>
+                                    <li class="list-items">asdnasdlknaslkdnglaksd</li>
+                                </marquee>
+                                <h2 class="mdl-card__title-text" style="color: azure">Updates</h2>
                         </div>
                         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
                             The above information has been updated by your instructors.
                         </div>
-                        
+
                     </div>
                     <div class="demo-separator mdl-cell--1-col"></div>
                     <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
@@ -175,38 +193,36 @@
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
     <script>
-      
-      function onClickGrades() {
-        console.log("on click grade");
-        
-        let enrollmentNo = <%- JSON.stringify(enrollmentNo) %>;
-        
-        let dataObject = {
-          enrollmentNo: enrollmentNo,
-          currentSem: "sem1"
-        }
-        console.log("on click grades helper");
-        
-        let dataObjectBase64 = btoa(JSON.stringify(dataObject));
-        window.open(`/student-grades/?data=${dataObjectBase64}`, "_top");
-      }
+        function onClickGrades() {
+            console.log("on click grade");
 
-      function onClickFeedback() {
-        let enrollmentNo = <%- JSON.stringify(enrollmentNo) %>;
+            let enrollmentNo = <%- JSON.stringify(enrollmentNo) %>;
 
-        let dataObject = {
-          enrollmentNo: enrollmentNo
+            let dataObject = {
+                enrollmentNo: enrollmentNo,
+                currentSem: "sem1"
+            }
+            console.log("on click grades helper");
+
+            let dataObjectBase64 = btoa(JSON.stringify(dataObject));
+            window.open(`/student-grades/?data=${dataObjectBase64}`, "_top");
         }
 
-        let dataObjectBase64 = btoa(JSON.stringify(dataObject));
-        window.open(`/student-feedback/?data=${dataObjectBase64}`, "_top");
-      }
+        function onClickFeedback() {
+            let enrollmentNo = <%- JSON.stringify(enrollmentNo) %>;
 
-      function onClickSignOut() {
+            let dataObject = {
+                enrollmentNo: enrollmentNo
+            }
+
+            let dataObjectBase64 = btoa(JSON.stringify(dataObject));
+            window.open(`/student-feedback/?data=${dataObjectBase64}`, "_top");
+        }
+
+        function onClickSignOut() {
             window.open("/login", "_top");
         }
-
-    </script> 
+    </script>
 </body>
 
 </html>
