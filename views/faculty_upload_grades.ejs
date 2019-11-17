@@ -79,23 +79,16 @@
                         <span class="contact100-form-title">
                         Upload Grades
                         </span>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Course Code
-                                </button>
-                            <div class="dropdown-menu" aria-labelledby="drwrap-tableopdownMenuButton">
-                                <a class="dropdown-item" href="#">1</a>
-                                <a class="dropdown-item" href="#">2</a>
-                                <a class="dropdown-item" href="#">3</a>
-                            </div>
-                        </div>
-                        <div class="upload" input type='button'>
-                            Choose
-                        </div>
                         <!-- Here goes the dropdowns etc -->
+                        <select class="btn btn-secondary dropdown-toggle" id="semesterDropDown" onchange="onChangeSemester()">
+                            <% Object.keys(courses).forEach(key => { %>
+                                <option value= <%= key %> >
+                                    <%= key %>
+                                </option>
+                            <% }); %>
+                        </select>
 
-                        <!-- Feedback message starts -->
-
+                        <div class="upload" input type='button'> Choose </div>
 
                     </form>
                     <br>

@@ -65,41 +65,52 @@
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                <a class="mdl-navigation__link" ><i class="mdl-color-text--blue-grey-400 material-icons"
                         role="presentation">event_note</i>Course Grades</a>
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                <a class="mdl-navigation__link" ><i class="mdl-color-text--blue-grey-400 material-icons"
                         role="presentation">assignment</i>Feedbacks</a>
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                <a class="mdl-navigation__link" onclick="onClickUploadGrades()"><i class="mdl-color-text--blue-grey-400 material-icons"
                         role="presentation">note_add</i>Upload Grades</a>
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                <a class="mdl-navigation__link" onclick="onClickSignOut()"><i class="mdl-color-text--blue-grey-400 material-icons"
                         role="presentation">cancel</i>Sign Out</a>
             </nav>
         </div>
 
         <main class="mdl-layout__content mdl-color--grey-100">
+
             <div class="mdl-grid demo-content" id="main-content">
-
-                <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                    <ul class="mdl-card__subtitle-text" id="updates-card">
-                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        </h6>
-                        <h2 class="mdl-card__title-text" style="color: azure">Course Name</h2>
-                </div>
-
-                <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                    <ul class="mdl-card__subtitle-text" id="updates-card">
-                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        </h6>
-                        <h2 class="mdl-card__title-text" style="color: azure">Course Name</h2>
-                </div>
-
+                <% Object.keys(feedbacks).forEach(courseCode => { %>
+                    <% Object.keys(feedbacks[courseCode]).forEach(key => { %>
+                        <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
+                            <ul class="mdl-card__subtitle-text" id="updates-card">
+                                <h5> <%= feedbacks[courseCode][key] %> </h5>
+                            <h2 class="mdl-card__title-text" style="color: azure"><%= courseCode %></h2>
+                        </div>
+                    <% }) %>
+                <% }); %>
             </div>
         </main>
 
 
     </div>
+
+    <script>
+
+        function onClickUploadGrades() {
+            const username = <%- JSON.stringify(username) %>;        
+
+            let dataObject = {
+                username: username,
+            };
+            let dataObjectBase64 = btoa(JSON.stringify(dataObject));
+
+            window.open(`/faculty-upload-grades/?data=${dataObjectBase64}`, "_top");
+        }
+
+        function onClickSignOut() {
+            window.open("/login", "_top");
+        }
+    </script>
 </body>
 
 </html>

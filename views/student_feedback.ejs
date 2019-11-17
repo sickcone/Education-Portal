@@ -118,16 +118,6 @@
                                     </option>
                                 <% }); %>
                             </select>
-                            <!-- <span class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Professor
-                                    </button>
-                                    <span class="dropdown-menu" aria-labelledby="drwrap-tableopdownMenuButton">
-                                      <a class="dropdown-item" href="#">Jana</a>
-                                      <a class="dropdown-item" href="#">Ki</a>
-                                      <a class="dropdown-item" href="#">Maka</a>
-                                    </span>
-                        </span> -->
                         </span>
                         <!-- Feedback message starts -->
                         <div class="wrap-input100 validate-input" data-validate="Message is required">
@@ -152,16 +142,16 @@
             const COLLEGE_NAME = "IIITA";
             const CURRENT_YEAR = "2019";
 
-            firebase.database().ref("IIITA").child(`${COLLEGE_NAME}/${CURRENT_YEAR}`).child(courseCode).push()
-                .set(feedback, error => {
-                    if (!error) {
-                        alert("Feedback Recorded");
-                    } else {
-                        console.log("Feedback error: " + error.message);
-
-                        alert("Some error occured, try after sometime");
-                    }
-                });
+            firebase.database().ref(COLLEGE_NAME).child("feedbacks").child(CURRENT_YEAR).child(courseCode).push()
+                    .set(feedback, error => {
+                        if (!error) {
+                            alert("Feedback Recorded");
+                        } else {
+                            console.log("Feedback error: " + error.message);
+                        
+                            alert("Some error occured, try after sometime");
+                        }
+                    });
         }
 
         function onClickHomeButton() {
