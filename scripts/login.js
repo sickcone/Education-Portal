@@ -2,9 +2,10 @@ function onLoginClickHelper(email, password, userType = 1) {
         
     firebase.auth().signInWithEmailAndPassword(email, password).then(response => {
         let dataObject = {
-            rollNo: email.substring(0, email.indexOf("@")),
+            enrollmentNo: email.substring(0, email.indexOf("@")),
             userType: userType
         };
+        
         let dataObjectBase64 = btoa(JSON.stringify(dataObject));
 
         switch (userType) {

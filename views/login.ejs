@@ -62,6 +62,9 @@
     </div>
 
     <script>
+
+        window.onbeforeunload = function() {  };
+
         function onLoginClick() {
             const email = document.getElementById("login").value;
             const password = document.getElementById("password").value;
