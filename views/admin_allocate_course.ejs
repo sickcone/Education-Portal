@@ -85,18 +85,15 @@
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
                 <a class="mdl-navigation__link" ><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-                <a class="mdl-navigation__link" ><i
-                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add
-                        Student</a>
-                <a class="mdl-navigation__link" ><i
-                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add
-                        Faculty</a>
+                <a class="mdl-navigation__link" onclick="onClickAddStudent()"><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Student</a>
+                <a class="mdl-navigation__link" onclick="onClickAddFaculty()" ><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person_add</i>Add Faculty</a>
                 <a class="mdl-navigation__link" ><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Allocate Course</a>
-                <a class="mdl-navigation__link" ><i
-                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">announcement</i>Send
-                    Update</a>
-                <a class="mdl-navigation__link" ><i
+                <a class="mdl-navigation__link" onclick="onClickSendUpdates()" ><i
+                        class="mdl-color-text--blue-grey-400 material-icons" role="presentation">announcement</i>Send Update</a>
+                <a class="mdl-navigation__link" onclick="onClickSignOut()" ><i
                         class="mdl-color-text--blue-grey-400 material-icons" role="presentation">cancel</i>Sign Out</a>
             </nav>
         </div>
@@ -232,6 +229,22 @@
                     alert(error);
                 }
             });
+        }
+
+        function onClickAddStudent() {
+            window.open("admin-add-student", "_top");
+        }
+
+        function onClickAddFaculty() {
+            window.open("admin-add-faculty", "_top");
+        }
+
+        function onClickSendUpdates() {
+            window.open("admin-send-updates", "_top");
+        }
+
+        function onClickSignOut() {
+            window.open("login", "_top");
         }
     </script>
 

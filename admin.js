@@ -56,7 +56,15 @@ app.get('/student', (req, res) => {
         let rollNo = dataObject.enrollmentNo;
         
         dbReference.child(STUDENTS_KEY).child(rollNo).once("value", snapshot => {
-            res.render("student", snapshot.val());         
+            let data = snapshot.val();
+
+            dbReference.child("updates").once("value", updates => {
+                data.updates = updates.val()
+
+                res.render("student", data);
+                console.log(data);
+                
+            });         
         }, error => {
             console.log(`Error in logging: ${error.message}`);
         });
